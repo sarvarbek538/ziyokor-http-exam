@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ziyokor eksamin bosh sahifasi</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <link rel="icon" href="./favicon.png">
     <style>
         body {
@@ -159,6 +160,26 @@
                 }
             }, 0);
         }
+    </script>
+    <script>
+        // Sanitizatsiya funksiyasi
+function sanitizeInput(input) {
+    // HTML maxsus belgilarini kodlash
+    var element = document.createElement('div');
+    if (input) {
+        element.innerText = input;  // innerText yordamida XSS hujumlarini oldini olish
+        element.textContent = input;  // textContent ham xavfsiz usul
+    }
+    return element.innerHTML;  // Safe HTML taqdim etiladi
+}
+
+// Ma'lumotlarni to'g'ri sanitizatsiya qilib ko'rsatish
+function displayUserInput() {
+    var userInput = document.getElementById("userInput").value;  // foydalanuvchi kiritgan ma'lumot
+    var sanitizedInput = sanitizeInput(userInput);  // sanitizatsiya qilish
+    document.getElementById("output").innerHTML = sanitizedInput;  // xavfsiz tarzda chiqarish
+}
+
     </script>
     
 </head>
